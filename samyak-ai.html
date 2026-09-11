@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Samyak AI | Samyak Computer Classes</title>
+
+<meta name="description"
+content="Samyak AI - Ask questions about courses, computer classes, fees, scholarship and admissions at Samyak Computer Classes Bhanwarkua Indore.">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at top left,#182848,#07111f 45%,#02060c);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Animated Background */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:450px;
+    height:450px;
+    background:rgba(0,238,255,.12);
+    border-radius:50%;
+    filter:blur(80px);
+    top:-180px;
+    left:-150px;
+    animation:float1 8s infinite alternate;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:400px;
+    height:400px;
+    background:rgba(132,0,255,.12);
+    border-radius:50%;
+    filter:blur(80px);
+    bottom:-180px;
+    right:-120px;
+    animation:float2 10s infinite alternate;
+}
+
+@keyframes float1{
+    from{transform:translate(0,0);}
+    to{transform:translate(80px,60px);}
+}
+
+@keyframes float2{
+    from{transform:translate(0,0);}
+    to{transform:translate(-80px,-60px);}
+}
+
+/* Header */
+
+header{
+    text-align:center;
+    padding:28px 15px 15px;
+    position:relative;
+    z-index:2;
+}
+
+.logo{
+    width:75px;
+    height:75px;
+    margin:auto;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:34px;
+    background:linear-gradient(135deg,#00eaff,#8b5cff);
+    box-shadow:
+    0 0 20px rgba(0,234,255,.7),
+    0 0 50px rgba(139,92,255,.4);
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.07);
+        box-shadow:
+        0 0 30px rgba(0,234,255,.9),
+        0 0 70px rgba(139,92,255,.6);
+    }
+}
+
+h1{
+    margin-top:14px;
+    font-size:30px;
+}
+
+.subtitle{
+    color:#b8c7d9;
+    margin-top:7px;
+    font-size:14px;
+}
+
+/* Main */
+
+.container{
+    width:94%;
+    max-width:1050px;
+    margin:20px auto 50px;
+    position:relative;
+    z-index:2;
+}
+
+/* AI Card */
+
+.ai-card{
+    background:rgba(10,20,35,.75);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:25px;
+    padding:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    backdrop-filter:blur(15px);
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:15px;
+    color:#b8c7d9;
+    font-size:13px;
+}
+
+.status-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#00ff9d;
+    box-shadow:0 0 12px #00ff9d;
+}
+
+/* Chat */
+
+.chat{
+    height:350px;
+    overflow-y:auto;
+    padding:5px;
+    margin-bottom:15px;
+}
+
+.message{
+    max-width:82%;
+    padding:12px 15px;
+    margin:10px 0;
+    border-radius:16px;
+    line-height:1.5;
+    font-size:14px;
+    white-space:pre-wrap;
+}
+
+.bot{
+    background:#111e31;
+    border:1px solid rgba(255,255,255,.08);
+    margin-right:auto;
+}
+
+.user{
+    background:linear-gradient(135deg,#006eff,#7b35ff);
+    margin-left:auto;
+}
+
+.typing{
+    color:#8fa3bb;
+    font-size:13px;
+    padding:5px;
+}
+
+/* Input */
+
+.input-area{
+    display:flex;
+    gap:10px;
+}
+
+.input-area input{
+    flex:1;
+    padding:15px;
+    border:none;
+    outline:none;
+    border-radius:14px;
+    background:#081321;
+    color:white;
+    border:1px solid #26384f;
+}
+
+.send-btn{
+    border:none;
+    padding:0 20px;
+    border-radius:14px;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    background:linear-gradient(135deg,#00aaff,#743cff);
+    box-shadow:0 0 20px rgba(0,170,255,.3);
+}
+
+.send-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* Quick buttons */
+
+.section-title{
+    text-align:center;
+    margin:35px 0 17px;
+    font-size:21px;
+}
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:13px;
+}
+
+.quick-btn{
+    position:relative;
+    overflow:hidden;
+    border:none;
+    min-height:68px;
+    padding:12px;
+    border-radius:18px;
+    color:white;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    background:linear-gradient(
+        135deg,
+        rgba(0,180,255,.22),
+        rgba(123,53,255,.24)
+    );
+    border:1px solid rgba(255,255,255,.12);
+    transition:.3s;
+}
+
+.quick-btn:hover{
+    transform:translateY(-5px) scale(1.02);
+    box-shadow:0 12px 30px rgba(0,0,0,.3);
+    border-color:#00d9ff;
+}
+
+.quick-btn::after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    background:rgba(255,255,255,.08);
+    border-radius:50%;
+    top:-50px;
+    right:-40px;
+}
+
+.icon{
+    display:block;
+    font-size:23px;
+    margin-bottom:5px;
+}
+
+/* Location */
+
+.location-card{
+    margin-top:30px;
+    padding:20px;
+    border-radius:22px;
+    background:linear-gradient(
+        135deg,
+        rgba(0,170,255,.13),
+        rgba(139,92,255,.13)
+    );
+    border:1px solid rgba(255,255,255,.12);
+    text-align:center;
+}
+
+.location-card h2{
+    margin-bottom:8px;
+}
+
+.location-card p{
+    color:#b8c7d9;
+    line-height:1.6;
+    font-size:14px;
+}
+
+.map-btn{
+    display:inline-block;
+    margin-top:15px;
+    text-decoration:none;
+    color:white;
+    padding:13px 22px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#00b8ff,#673cff);
+    font-weight:bold;
+}
+
+/* Bottom links */
+
+.bottom-links{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin-top:25px;
+}
+
+.bottom-links a{
+    text-decoration:none;
+    color:#dce9f7;
+    padding:10px 15px;
+    border-radius:12px;
+    background:#0b1727;
+    border:1px solid #23354c;
+    font-size:13px;
+}
+
+.bottom-links a:hover{
+    border-color:#00d9ff;
+    color:white;
+}
+
+/* Footer */
+
+footer{
+    text-align:center;
+    color:#71849b;
+    font-size:12px;
+    padding:20px;
+}
+
+/* Mobile */
+
+@media(max-width:700px){
+
+    h1{
+        font-size:25px;
+    }
+
+    .quick-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .chat{
+        height:320px;
+    }
+
+    .message{
+        max-width:90%;
+    }
+
+}
+
+@media(max-width:430px){
+
+    .quick-grid{
+        grid-template-columns:1fr;
+    }
+
+    .input-area{
+        flex-direction:column;
+    }
+
+    .send-btn{
+        height:50px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">🤖</div>
+
+    <h1>Samyak AI</h1>
+
+    <div class="subtitle">
+        Your Smart Assistant • Samyak Computer Classes
+    </div>
+
+</header>
+
+
+<div class="container">
+
+    <!-- AI CHAT -->
+
+    <div class="ai-card">
+
+        <div class="status">
+            <span class="status-dot"></span>
+            Samyak AI Online
+        </div>
+
+        <div class="chat" id="chat">
+
+            <div class="message bot">
+                👋 Namaste!
+
+                Main Samyak AI hoon.
+
+                Aap mujhse courses, fees, duration, scholarship, computer learning, admission ya general questions pooch sakte hain.
+
+                Aap kya jaana chahte hain?
+            </div>
+
+        </div>
+
+
+        <div class="input-area">
+
+            <input
+                id="userInput"
+                type="text"
+                placeholder="Apna question yahan likhiye..."
+                autocomplete="off"
+            >
+
+            <button
+                class="send-btn"
+                onclick="sendMessage()"
+            >
+                Send 🚀
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <h2 class="section-title">
+        ✨ Quick Actions
+    </h2>
+
+
+    <div class="quick-grid">
+
+        <button
+            class="quick-btn"
+            onclick="askAI('Samyak Computer Classes ke baare mein batao')"
+        >
+            <span class="icon">🤖</span>
+            Ask Samyak AI
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="goCourses()"
+        >
+            <span class="icon">📚</span>
+            All Courses
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="askAI('Samyak Computer Classes ke courses ki fees batao')"
+        >
+            <span class="icon">💰</span>
+            Course Fees
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="askAI('Courses ki duration kitni hoti hai?')"
+        >
+            <span class="icon">⏱️</span>
+            Duration
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="askAI('₹2000 scholarship kaise milegi?')"
+        >
+            <span class="icon">🎓</span>
+            ₹2,000 Scholarship
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="openLocation()"
+        >
+            <span class="icon">📍</span>
+            Our Location
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="callSamyak()"
+        >
+            <span class="icon">📞</span>
+            Contact Us
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="openEnquiry()"
+        >
+            <span class="icon">📝</span>
+            Admission / Enquiry
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="openWhatsApp()"
+        >
+            <span class="icon">💬</span>
+            WhatsApp
+        </button>
+
+    </div>
+
+
+    <!-- LOCATION -->
+
+    <div class="location-card">
+
+        <h2>📍 Samyak Computer Classes</h2>
+
+        <p>
+            Bhanwarkua, Indore, Madhya Pradesh
+            <br>
+            Computer Courses • Skill Development • Career Training
+        </p>
+
+        <a
+            class="map-btn"
+            href="https://maps.app.goo.gl/enP8wVFMpHJZBg1f6?g_st=ac"
+            target="_blank"
+        >
+            🗺️ Open Google Maps
+        </a>
+
+    </div>
+
+
+    <!-- BOTTOM LINKS -->
+
+    <div class="bottom-links">
+
+        <a href="courses.html">
+            📚 Courses
+        </a>
+
+        <a href="test.html">
+            🧪 Scholarship Test
+        </a>
+
+        <a
+            href="https://samyakindore.github.io/enquiry/"
+            target="_blank"
+        >
+            📝 Enquiry
+        </a>
+
+        <a
+            href="https://wa.me/916232487747"
+            target="_blank"
+        >
+            💬 WhatsApp
+        </a>
+
+        <a
+            href="https://maps.app.goo.gl/enP8wVFMpHJZBg1f6?g_st=ac"
+            target="_blank"
+        >
+            🗺️ Google Maps
+        </a>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    © 2026 Samyak Computer Classes • Bhanwarkua, Indore
+
+</footer>
+
+
+<script>
+
+/* =========================================
+   IMPORTANT:
+   YAHAN APNE CLOUDFLARE WORKER KA URL DALO
+   ========================================= */
+
+const WORKER_URL =
+"https://plain-silence-5637.manaspatidar1432.workers.dev";
+
+
+/* =========================================
+   CHAT MEMORY
+   ========================================= */
+
+let conversation = [];
+
+
+/* =========================================
+   ADD MESSAGE
+   ========================================= */
+
+function addMessage(text, type){
+
+    const chat = document.getElementById("chat");
+
+    const message = document.createElement("div");
+
+    message.className =
+        "message " + type;
+
+    message.textContent = text;
+
+    chat.appendChild(message);
+
+    chat.scrollTop = chat.scrollHeight;
+
+}
+
+
+/* =========================================
+   SEND MESSAGE
+   ========================================= */
+
+async function sendMessage(){
+
+    const input =
+        document.getElementById("userInput");
+
+    const text =
+        input.value.trim();
+
+    if(!text){
+        return;
+    }
+
+    addMessage(text,"user");
+
+    input.value = "";
+
+    conversation.push({
+        role:"user",
+        content:text
+    });
+
+
+    const typing =
+        document.createElement("div");
+
+    typing.className =
+        "typing";
+
+    typing.id =
+        "typing";
+
+    typing.textContent =
+        "🤖 Samyak AI is thinking...";
+
+    document.getElementById("chat")
+        .appendChild(typing);
+
+
+    try{
+
+        const response =
+            await fetch(WORKER_URL,{
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+                    messages:conversation
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        document.getElementById("typing")
+            ?.remove();
+
+
+        if(!response.ok){
+
+            addMessage(
+                "⚠️ AI server se response nahi aa raha. Cloudflare Worker URL aur API setup check karein.",
+                "bot"
+            );
+
+            return;
+        }
+
+
+        const answer =
+            data.answer ||
+            "Sorry, mujhe iska answer nahi mila.";
+
+
+        addMessage(answer,"bot");
+
+
+        conversation.push({
+            role:"assistant",
+            content:answer
+        });
+
+
+    }
+
+    catch(error){
+
+        document.getElementById("typing")
+            ?.remove();
+
+        addMessage(
+            "⚠️ AI connect nahi ho pa raha. Please Worker URL check karein.",
+            "bot"
+        );
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =========================================
+   ENTER KEY
+   ========================================= */
+
+document
+.getElementById("userInput")
+.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+            sendMessage();
+        }
+
+    }
+);
+
+
+/* =========================================
+   QUICK AI
+   ========================================= */
+
+function askAI(question){
+
+    document
+    .getElementById("userInput")
+    .value = question;
+
+    sendMessage();
+
+}
+
+
+/* =========================================
+   COURSES
+   ========================================= */
+
+function goCourses(){
+
+    window.location.href =
+        "courses.html";
+
+}
+
+
+/* =========================================
+   LOCATION
+   ========================================= */
+
+function openLocation(){
+
+    window.open(
+        "https://maps.app.goo.gl/enP8wVFMpHJZBg1f6?g_st=ac",
+        "_blank"
+    );
+
+}
+
+
+/* =========================================
+   CALL
+   ========================================= */
+
+function callSamyak(){
+
+    window.location.href =
+        "tel:6232487747";
+
+}
+
+
+/* =========================================
+   WHATSAPP
+   ========================================= */
+
+function openWhatsApp(){
+
+    window.open(
+        "https://wa.me/916232487747",
+        "_blank"
+    );
+
+}
+
+
+/* =========================================
+   ENQUIRY
+   ========================================= */
+
+function openEnquiry(){
+
+    window.open(
+        "https://samyakindore.github.io/enquiry/",
+        "_blank"
+    );
+
+}
+
+</script>
+
+</body>
+</html>
