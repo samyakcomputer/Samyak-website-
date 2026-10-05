@@ -715,15 +715,26 @@ async function sendMessage(){
             ?.remove();
 
 
-        if(!response.ok){
+       if(!response.ok){
 
-            addMessage(
-                "⚠️ AI server se response nahi aa raha. Cloudflare Worker URL aur API setup check karein.",
-                "bot"
-            );
+const serverError =
+data?.error ||
+`HTTP Error ${response.status}`;
 
-            return;
-        }
+addMessage(
+"⚠️ " + serverError,
+"bot"
+);
+
+console.error(
+"Worker Error:",
+response.status,
+data
+);
+
+return;
+
+}
 
 
         const answer =
@@ -747,13 +758,16 @@ async function sendMessage(){
         document.getElementById("typing")
             ?.remove();
 
-        addMessage(
-            "⚠️ AI connect nahi ho pa raha. Please Worker URL check karein.",
-            "bot"
-        );
+       addMessage(
+"⚠️ Connection Error: " +
+(error?.message || "Unknown error"),
+"bot"
+);
 
-        console.error(error);
-
+console.error(
+"Connection Error:",
+error
+);
     }
 
 }
